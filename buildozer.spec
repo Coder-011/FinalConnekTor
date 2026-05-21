@@ -18,6 +18,7 @@ android.minapi = 21
 android.targetapi = 33
 android.ndk = 25b
 android.sdk_build_tools = 33.0.2
+android.accept_sdk_license = True
 android.archs = arm64-v8a, armeabi-v7a
 
 android.permissions = INTERNET, ACCESS_WIFI_STATE, CHANGE_WIFI_STATE, ACCESS_NETWORK_STATE, CHANGE_NETWORK_STATE
