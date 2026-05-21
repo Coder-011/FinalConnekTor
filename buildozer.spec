@@ -6,18 +6,15 @@ source.dir = .
 source.include_exts = py,kv,json,ttf,otf,png,jpg
 version = 4.0.0
 
-requirements = python3,kivy==2.3.0,kivymd==1.1.1,requests,certifi,charset-normalizer,urllib3==1.26.18,idna
+requirements = python3,kivy,kivymd,requests,certifi,charset-normalizer,urllib3,idna
 
-# urllib3 MUST be pinned to 1.26.18 — version 2.x dropped the
-# urllib3.exceptions.InsecureRequestWarning class that requests relies on
-# when verify=False. This will cause an AttributeError at runtime on 2.x.
-
+# Removed hard pins to allow Buildozer to resolve dependencies automatically
 orientation = portrait
 fullscreen = 0
 android.minapi = 21
 android.targetapi = 33
-android.ndk = 25b
-android.sdk_build_tools = 33.0.2
+# android.ndk = 25b
+# android.sdk_build_tools = 33.0.2
 android.accept_sdk_license = True
 android.archs = arm64-v8a, armeabi-v7a
 
