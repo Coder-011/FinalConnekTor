@@ -39,8 +39,8 @@ jobs:
       - name: Install Python build tools
         run: |
           pip install --upgrade pip
-          pip install buildozer==1.5.0
-          pip install cython==0.29.37
+          pip install buildozer
+          pip install cython
 
           # Cython MUST be 0.29.37 — Cython 3.x changed how .pyx files
           # are compiled and breaks the kivy extension modules.
