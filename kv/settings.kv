@@ -1,0 +1,273 @@
+#:import dp kivy.metrics.dp
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<SettingsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: get_color_from_hex('#0D0E1A')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(70)
+            padding: [dp(24), dp(16), 0, 0]
+            orientation: 'vertical'
+
+            MDLabel:
+                id: title_label
+                text: 'Settings'
+                font_name: 'assets/fonts/Poppins-Bold.ttf'
+                font_size: '26sp'
+                bold: True
+                size_hint_y: None
+                height: dp(36)
+
+            MDLabel:
+                text: 'Manage your preferences'
+                font_size: '13sp'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                size_hint_y: None
+                height: dp(20)
+
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: dp(12)
+                padding: [dp(16), dp(12)]
+                size_hint_y: None
+                height: self.minimum_height
+
+                # ── SECTION: APPEARANCE ──────────────────────────────────────
+                MDLabel:
+                    id: appearance_section
+                    text: 'APPEARANCE & BEHAVIOR'
+                    font_size: '11sp'
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+
+                # Appearance card
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    radius: [16, 16, 16, 16]
+                    md_bg_color: get_color_from_hex('#161829')
+                    padding: [dp(20), dp(16)]
+                    spacing: dp(16)
+                    size_hint_y: None
+                    height: dp(80)
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(48)
+                        spacing: dp(12)
+
+                        MDIcon:
+                            icon: 'flash'
+                            theme_text_color: 'Custom'
+                            text_color: get_color_from_hex('#8E8EA0')
+                            size_hint_x: None
+                            width: dp(28)
+
+                        BoxLayout:
+                            orientation: 'vertical'
+
+                            MDLabel:
+                                text: 'Auto Login'
+                                font_size: '15sp'
+                                bold: True
+                                size_hint_y: None
+                                height: dp(22)
+
+                            MDLabel:
+                                text: 'Connect when WiFi is available'
+                                font_size: '12sp'
+                                theme_text_color: 'Custom'
+                                text_color: get_color_from_hex('#8E8EA0')
+                                size_hint_y: None
+                                height: dp(18)
+
+                        MDSwitch:
+                            id: auto_login_toggle
+                            pos_hint: {'center_y': .5}
+                            on_active: root.on_auto_login_toggle(self.active)
+
+                # ── SECTION: COLOR THEME ─────────────────────────────────────
+                MDLabel:
+                    text: 'ACCENT COLOR'
+                    font_size: '11sp'
+                    bold: True
+                    theme_text_color: 'Custom'
+                    text_color: get_color_from_hex('#5B6BF5')
+                    size_hint_y: None
+                    height: dp(24)
+
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    radius: [16, 16, 16, 16]
+                    md_bg_color: get_color_from_hex('#161829')
+                    padding: [dp(20), dp(16)]
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: dp(270)
+
+                    MDLabel:
+                        text: 'Choose your accent color. Dark background is always kept.'
+                        font_size: '12sp'
+                        theme_text_color: 'Custom'
+                        text_color: get_color_from_hex('#8E8EA0')
+                        size_hint_y: None
+                        height: dp(36)
+
+                    # Row 1: 4 swatches
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(52)
+                        spacing: dp(10)
+
+                        MDRaisedButton:
+                            text: 'Blue'
+                            md_bg_color: get_color_from_hex('#5B6BF5')
+                            on_release: root.on_theme_select('electric_blue')
+
+                        MDRaisedButton:
+                            text: 'Violet'
+                            md_bg_color: get_color_from_hex('#A855F7')
+                            on_release: root.on_theme_select('cyber_violet')
+
+                        MDRaisedButton:
+                            text: 'Green'
+                            md_bg_color: get_color_from_hex('#22C55E')
+                            on_release: root.on_theme_select('neon_green')
+
+                        MDRaisedButton:
+                            text: 'Pink'
+                            md_bg_color: get_color_from_hex('#EC4899')
+                            on_release: root.on_theme_select('hot_pink')
+
+                    # Row 2: 3 swatches
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(52)
+                        spacing: dp(10)
+
+                        MDRaisedButton:
+                            text: 'Orange'
+                            md_bg_color: get_color_from_hex('#F97316')
+                            on_release: root.on_theme_select('solar_orange')
+
+                        MDRaisedButton:
+                            text: 'Cyan'
+                            md_bg_color: get_color_from_hex('#06B6D4')
+                            on_release: root.on_theme_select('ice_cyan')
+
+                        MDRaisedButton:
+                            text: 'Gold'
+                            md_bg_color: get_color_from_hex('#EAB308')
+                            on_release: root.on_theme_select('gold')
+
+                    MDLabel:
+                        text: 'Current theme updates all screens instantly.'
+                        font_size: '11sp'
+                        theme_text_color: 'Custom'
+                        text_color: get_color_from_hex('#8E8EA0')
+                        size_hint_y: None
+                        height: dp(20)
+
+                # ── SECTION: SYSTEM INFO ─────────────────────────────────────
+                MDLabel:
+                    id: sysinfo_section
+                    text: 'SYSTEM INFO'
+                    font_size: '11sp'
+                    bold: True
+                    size_hint_y: None
+                    height: dp(24)
+
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    radius: [16, 16, 16, 16]
+                    md_bg_color: get_color_from_hex('#161829')
+                    padding: [dp(20), dp(16)]
+                    spacing: dp(8)
+                    size_hint_y: None
+                    height: dp(120)
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(40)
+                        spacing: dp(12)
+
+                        MDIcon:
+                            icon: 'shield-check'
+                            theme_text_color: 'Custom'
+                            text_color: get_color_from_hex('#8E8EA0')
+                            size_hint_x: None
+                            width: dp(28)
+
+                        MDLabel:
+                            text: 'Version\n4.0.0 Elite Build'
+                            font_size: '13sp'
+
+                        MDBoxLayout:
+                            id: stable_badge
+                            size_hint: (None, None)
+                            size: (dp(70), dp(26))
+                            radius: [8, 8, 8, 8]
+                            pos_hint: {'center_y': .5}
+
+                            MDLabel:
+                                text: 'STABLE'
+                                font_size: '11sp'
+                                bold: True
+                                halign: 'center'
+                                theme_text_color: 'Custom'
+                                text_color: 1, 1, 1, 1
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(30)
+                        spacing: dp(12)
+
+                        MDIcon:
+                            icon: 'information-outline'
+                            theme_text_color: 'Custom'
+                            text_color: get_color_from_hex('#8E8EA0')
+                            size_hint_x: None
+                            width: dp(28)
+
+                        MDLabel:
+                            text: 'Made by Anup Aryal'
+                            font_size: '13sp'
+
+        # ── BOTTOM NAV ───────────────────────────────────────────────────────
+        BoxLayout:
+            size_hint_y: None
+            height: dp(62)
+            canvas.before:
+                Color:
+                    rgba: get_color_from_hex('#111220')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            MDIconButton:
+                icon: 'home'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                on_release: app.sm.current = 'home'
+
+            MDIconButton:
+                icon: 'account'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                on_release: app.sm.current = 'profiles'
+
+            MDIconButton:
+                icon: 'cog'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#5B6BF5')
+                on_release: app.sm.current = 'settings'

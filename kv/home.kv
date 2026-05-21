@@ -1,0 +1,187 @@
+#:import dp kivy.metrics.dp
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: get_color_from_hex('#0D0E1A')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # ── TOP BAR ─────────────────────────────────────────────────────────
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: dp(70)
+            padding: [dp(24), dp(16), dp(16), 0]
+
+            BoxLayout:
+                orientation: 'vertical'
+                MDLabel:
+                    id: title_label
+                    text: 'ConnekTor'
+                    font_name: 'assets/fonts/Poppins-Bold.ttf'
+                    font_size: '26sp'
+                    bold: True
+                    size_hint_y: None
+                    height: dp(36)
+                MDLabel:
+                    text: 'College WiFi, automated.'
+                    font_size: '13sp'
+                    theme_text_color: 'Custom'
+                    text_color: get_color_from_hex('#8E8EA0')
+                    size_hint_y: None
+                    height: dp(20)
+
+        # ── STATUS BADGE ────────────────────────────────────────────────────
+        BoxLayout:
+            size_hint_y: None
+            height: dp(44)
+            padding: [0, dp(8), 0, 0]
+            pos_hint: {'center_x': .5}
+
+            MDBoxLayout:
+                id: status_badge
+                size_hint: (None, None)
+                size: (dp(130), dp(32))
+                pos_hint: {'center_x': .5}
+                radius: [16, 16, 16, 16]
+                md_bg_color: get_color_from_hex('#FF4757')
+
+                MDLabel:
+                    id: status_label
+                    text: 'FAILED'
+                    font_size: '12sp'
+                    bold: True
+                    halign: 'center'
+                    theme_text_color: 'Custom'
+                    text_color: 1, 1, 1, 1
+
+        # ── CONNECT BUTTON ───────────────────────────────────────────────────
+        Widget:
+            size_hint_y: 0.06
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(220)
+            pos_hint: {'center_x': .5}
+
+            MDFloatLayout:
+                pos_hint: {'center_x': .5}
+
+                # Glow ring — outer circle behind button
+                MDBoxLayout:
+                    id: connect_glow
+                    size_hint: (None, None)
+                    size: (dp(220), dp(220))
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    radius: [110, 110, 110, 110]
+                    md_bg_color: 0.36, 0.42, 0.96, 0.12
+
+                # Button circle
+                MDBoxLayout:
+                    id: connect_btn
+                    size_hint: (None, None)
+                    size: (dp(190), dp(190))
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    radius: [95, 95, 95, 95]
+                    md_bg_color: get_color_from_hex('#FF6B6B')
+                    on_touch_down:
+                        if self.collide_point(*args[1].pos): root.on_connect_press()
+
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+
+                        MDIcon:
+                            icon: 'wifi'
+                            halign: 'center'
+                            theme_text_color: 'Custom'
+                            text_color: 1, 1, 1, 1
+                            font_size: '44sp'
+
+                        MDLabel:
+                            text: 'CONNECT'
+                            font_size: '15sp'
+                            bold: True
+                            halign: 'center'
+                            theme_text_color: 'Custom'
+                            text_color: 1, 1, 1, 1
+                            size_hint_y: None
+                            height: dp(22)
+
+        Widget:
+            size_hint_y: 1
+
+        # ── ACTIVE PROFILE CARD ──────────────────────────────────────────────
+        MDBoxLayout:
+            size_hint_y: None
+            height: dp(90)
+            padding: [dp(20), 0, dp(20), dp(16)]
+
+            MDBoxLayout:
+                id: profile_card
+                orientation: 'vertical'
+                radius: [16, 16, 16, 16]
+                md_bg_color: get_color_from_hex('#161829')
+                padding: [dp(20), dp(12)]
+                on_touch_down:
+                    if self.collide_point(*args[1].pos): root.on_profile_card_tap()
+
+                MDLabel:
+                    text: 'ACTIVE PROFILE'
+                    font_size: '10sp'
+                    bold: True
+                    theme_text_color: 'Custom'
+                    text_color: get_color_from_hex('#8E8EA0')
+                    size_hint_y: None
+                    height: dp(16)
+
+                MDLabel:
+                    id: profile_name_label
+                    text: 'Profile 1'
+                    font_size: '17sp'
+                    bold: True
+                    size_hint_y: None
+                    height: dp(26)
+
+                MDLabel:
+                    id: profile_index_label
+                    text: '1 / 3 — tap to switch'
+                    font_size: '12sp'
+                    theme_text_color: 'Custom'
+                    text_color: get_color_from_hex('#8E8EA0')
+                    size_hint_y: None
+                    height: dp(18)
+
+        # ── BOTTOM NAV ───────────────────────────────────────────────────────
+        BoxLayout:
+            size_hint_y: None
+            height: dp(62)
+            canvas.before:
+                Color:
+                    rgba: get_color_from_hex('#111220')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            MDIconButton:
+                icon: 'home'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#5B6BF5')
+                on_release: app.sm.current = 'home'
+
+            MDIconButton:
+                icon: 'account'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                on_release: app.sm.current = 'profiles'
+
+            MDIconButton:
+                icon: 'cog'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                on_release: app.sm.current = 'settings'

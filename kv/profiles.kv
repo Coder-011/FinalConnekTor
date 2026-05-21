@@ -1,0 +1,166 @@
+#:import dp kivy.metrics.dp
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<ProfilesScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: get_color_from_hex('#0D0E1A')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(70)
+            padding: [dp(24), dp(16), 0, 0]
+            orientation: 'vertical'
+
+            MDLabel:
+                id: title_label
+                text: 'Profiles'
+                font_name: 'assets/fonts/Poppins-Bold.ttf'
+                font_size: '26sp'
+                bold: True
+                size_hint_y: None
+                height: dp(36)
+
+            MDLabel:
+                id: section_label
+                text: 'Configure your login credentials'
+                font_size: '13sp'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                size_hint_y: None
+                height: dp(20)
+
+        # ── TAB ROW ──────────────────────────────────────────────────────────
+        BoxLayout:
+            size_hint_y: None
+            height: dp(48)
+            padding: [dp(20), dp(8)]
+            spacing: dp(10)
+
+            MDRaisedButton:
+                id: tab_p1
+                text: 'P1'
+                size_hint_x: 1
+                on_release: root.switch_tab(0)
+
+            MDRaisedButton:
+                id: tab_p2
+                text: 'P2'
+                size_hint_x: 1
+                on_release: root.switch_tab(1)
+
+            MDRaisedButton:
+                id: tab_p3
+                text: 'P3'
+                size_hint_x: 1
+                on_release: root.switch_tab(2)
+
+        # ── PROFILE FORM CARD ────────────────────────────────────────────────
+        MDBoxLayout:
+            orientation: 'vertical'
+            radius: [16, 16, 16, 16]
+            md_bg_color: get_color_from_hex('#161829')
+            padding: [dp(20), dp(16)]
+            spacing: dp(12)
+            size_hint_y: None
+            height: dp(320)
+            pos_hint: {'center_x': .5}
+            size_hint_x: 0.92
+
+            MDLabel:
+                text: 'PROFILE NAME'
+                font_size: '11sp'
+                bold: True
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                size_hint_y: None
+                height: dp(16)
+
+            MDTextField:
+                id: profile_name_input
+                hint_text: 'e.g. My Profile'
+                mode: 'rectangle'
+                font_size: '14sp'
+
+            MDLabel:
+                text: 'USERNAME'
+                font_size: '11sp'
+                bold: True
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                size_hint_y: None
+                height: dp(16)
+
+            MDTextField:
+                id: username_input
+                hint_text: 'e.g. 080bel042'
+                mode: 'rectangle'
+                font_size: '14sp'
+
+            MDLabel:
+                text: 'PASSWORD'
+                font_size: '11sp'
+                bold: True
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                size_hint_y: None
+                height: dp(16)
+
+            MDTextField:
+                id: password_input
+                hint_text: 'Your password'
+                password: True
+                mode: 'rectangle'
+                font_size: '14sp'
+
+            MDRaisedButton:
+                text: 'Save Changes'
+                size_hint_x: 1
+                on_release: root.on_save()
+
+            MDLabel:
+                id: save_feedback_label
+                text: ''
+                opacity: 0
+                halign: 'center'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#2ED573')
+                size_hint_y: None
+                height: dp(20)
+
+        Widget:
+            size_hint_y: 1
+
+        # ── BOTTOM NAV ───────────────────────────────────────────────────────
+        BoxLayout:
+            size_hint_y: None
+            height: dp(62)
+            canvas.before:
+                Color:
+                    rgba: get_color_from_hex('#111220')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            MDIconButton:
+                icon: 'home'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                on_release: app.sm.current = 'home'
+
+            MDIconButton:
+                icon: 'account'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#5B6BF5')
+                on_release: app.sm.current = 'profiles'
+
+            MDIconButton:
+                icon: 'cog'
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#8E8EA0')
+                on_release: app.sm.current = 'settings'
