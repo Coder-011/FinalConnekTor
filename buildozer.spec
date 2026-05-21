@@ -6,7 +6,7 @@ source.dir = .
 source.include_exts = py,kv,json,ttf,otf,png,jpg
 version = 4.0.0
 
-requirements = python3==3.11.0,kivy==2.3.0,kivymd==1.1.1,requests,certifi,charset-normalizer,urllib3==1.26.18,idna
+requirements = python3,kivy==2.3.0,kivymd==1.1.1,requests,certifi,charset-normalizer,urllib3==1.26.18,idna
 
 # urllib3 MUST be pinned to 1.26.18 — version 2.x dropped the
 # urllib3.exceptions.InsecureRequestWarning class that requests relies on
