@@ -6,93 +6,108 @@
         orientation: 'vertical'
         canvas.before:
             Color:
-                rgba: get_color_from_hex('#0D0E1A')
+                rgba: get_color_from_hex('#131313')
             Rectangle:
                 pos: self.pos
                 size: self.size
 
         BoxLayout:
             size_hint_y: None
-            height: dp(70)
-            padding: [dp(24), dp(16), 0, 0]
+            height: dp(80)
+            padding: [dp(24), dp(20), 0, 0]
             orientation: 'vertical'
 
             MDLabel:
                 id: title_label
-                text: 'Profiles'
+                text: 'PROFILES'
                 font_name: 'assets/fonts/Poppins-Bold.ttf'
-                font_size: '26sp'
+                font_size: '28sp'
                 bold: True
                 size_hint_y: None
                 height: dp(36)
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#00F0FF')
 
             MDLabel:
                 id: section_label
-                text: 'Configure your login credentials'
+                text: 'Cyber Link Management'
                 font_size: '13sp'
                 theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#8E8EA0')
+                text_color: get_color_from_hex('#B9CACB')
                 size_hint_y: None
                 height: dp(20)
 
         # ── TAB ROW ──────────────────────────────────────────────────────────
         BoxLayout:
             size_hint_y: None
-            height: dp(48)
-            padding: [dp(20), dp(8)]
-            spacing: dp(10)
+            height: dp(60)
+            padding: [dp(20), dp(12)]
+            spacing: dp(15)
 
             MDRaisedButton:
                 id: tab_p1
                 text: 'P1'
                 size_hint_x: 1
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#131313')
+                md_bg_color: get_color_from_hex('#00F0FF')
                 on_release: root.switch_tab(0)
 
             MDRaisedButton:
                 id: tab_p2
                 text: 'P2'
                 size_hint_x: 1
+                md_bg_color: get_color_from_hex('#1C1B1B')
                 on_release: root.switch_tab(1)
 
             MDRaisedButton:
                 id: tab_p3
                 text: 'P3'
                 size_hint_x: 1
+                md_bg_color: get_color_from_hex('#1C1B1B')
                 on_release: root.switch_tab(2)
 
         # ── PROFILE FORM CARD ────────────────────────────────────────────────
         MDBoxLayout:
             orientation: 'vertical'
-            radius: [16, 16, 16, 16]
-            md_bg_color: get_color_from_hex('#161829')
-            padding: [dp(20), dp(16)]
-            spacing: dp(12)
+            radius: [24]
+            md_bg_color: get_color_from_hex('#1C1B1B')
+            padding: [dp(24), dp(20)]
+            spacing: dp(15)
             size_hint_y: None
-            height: dp(320)
+            height: dp(360)
             pos_hint: {'center_x': .5}
             size_hint_x: 0.92
 
-            MDLabel:
-                text: 'PROFILE NAME'
-                font_size: '11sp'
-                bold: True
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#8E8EA0')
+            BoxLayout:
                 size_hint_y: None
-                height: dp(16)
+                height: dp(30)
+                MDLabel:
+                    text: 'PROFILE NAME'
+                    font_size: '11sp'
+                    bold: True
+                    theme_text_color: 'Custom'
+                    text_color: get_color_from_hex('#B9CACB')
+                MDIconButton:
+                    icon: 'pencil-outline'
+                    pos_hint: {'center_y': .5}
+                    theme_text_color: 'Custom'
+                    text_color: get_color_from_hex('#00F0FF')
+                    on_release: root.edit_profile_name()
 
             MDTextField:
                 id: profile_name_input
                 hint_text: 'e.g. My Profile'
                 mode: 'rectangle'
-                font_size: '14sp'
+                font_size: '15sp'
+                line_color_focus: get_color_from_hex('#00F0FF')
 
             MDLabel:
                 text: 'USERNAME'
                 font_size: '11sp'
                 bold: True
                 theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#8E8EA0')
+                text_color: get_color_from_hex('#B9CACB')
                 size_hint_y: None
                 height: dp(16)
 
@@ -100,27 +115,33 @@
                 id: username_input
                 hint_text: 'e.g. 080bel042'
                 mode: 'rectangle'
-                font_size: '14sp'
+                font_size: '15sp'
+                line_color_focus: get_color_from_hex('#00F0FF')
 
             MDLabel:
                 text: 'PASSWORD'
                 font_size: '11sp'
                 bold: True
                 theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#8E8EA0')
+                text_color: get_color_from_hex('#B9CACB')
                 size_hint_y: None
                 height: dp(16)
 
             MDTextField:
                 id: password_input
-                hint_text: 'Your password'
+                hint_text: 'Quantum Password'
                 password: True
                 mode: 'rectangle'
-                font_size: '14sp'
+                font_size: '15sp'
+                line_color_focus: get_color_from_hex('#00F0FF')
 
             MDRaisedButton:
-                text: 'Save Changes'
+                text: 'SAVE CHANGES'
                 size_hint_x: 1
+                height: dp(48)
+                theme_text_color: 'Custom'
+                text_color: get_color_from_hex('#131313')
+                md_bg_color: get_color_from_hex('#00F0FF')
                 on_release: root.on_save()
 
             MDLabel:
@@ -129,7 +150,7 @@
                 opacity: 0
                 halign: 'center'
                 theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#2ED573')
+                text_color: get_color_from_hex('#00F0FF')
                 size_hint_y: None
                 height: dp(20)
 
@@ -139,10 +160,10 @@
         # ── BOTTOM NAV ───────────────────────────────────────────────────────
         BoxLayout:
             size_hint_y: None
-            height: dp(62)
+            height: dp(65)
             canvas.before:
                 Color:
-                    rgba: get_color_from_hex('#111220')
+                    rgba: get_color_from_hex('#0E0E0E')
                 Rectangle:
                     pos: self.pos
                     size: self.size
@@ -150,17 +171,17 @@
             MDIconButton:
                 icon: 'home'
                 theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#8E8EA0')
+                text_color: get_color_from_hex('#B9CACB')
                 on_release: app.sm.current = 'home'
 
             MDIconButton:
-                icon: 'account'
+                icon: 'router'
                 theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#5B6BF5')
+                text_color: get_color_from_hex('#00F0FF')
                 on_release: app.sm.current = 'profiles'
 
             MDIconButton:
-                icon: 'cog'
+                icon: 'settings'
                 theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#8E8EA0')
+                text_color: get_color_from_hex('#B9CACB')
                 on_release: app.sm.current = 'settings'
