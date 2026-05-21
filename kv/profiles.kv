@@ -168,20 +168,26 @@
                     pos: self.pos
                     size: self.size
 
-            MDIconButton:
-                icon: 'home'
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#B9CACB')
-                on_release: app.sm.current = 'home'
+            AnchorLayout:
+                anchor_x: 'center'
+                MDIconButton:
+                    icon: 'home'
+                    theme_text_color: 'Custom'
+                    text_color: get_color_from_hex('#B9CACB')
+                    on_release: app.sm.current = 'home'
 
-            MDIconButton:
-                icon: 'router'
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#00F0FF')
-                on_release: app.sm.current = 'profiles'
+            AnchorLayout:
+                anchor_x: 'center'
+                MDIconButton:
+                    icon: 'router'
+                    theme_text_color: 'Custom'
+                    text_color: get_color_from_hex('#00F0FF')
+                    on_release: app.sm.current = 'profiles'
 
-            MDIconButton:
-                icon: 'settings'
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#B9CACB')
-                on_release: app.sm.current = 'settings'
+            AnchorLayout:
+                anchor_x: 'center'
+                MDIconButton:
+                    icon: 'settings'
+                    theme_text_color: 'Custom'
+                    text_color: get_color_from_hex('#B9CACB')
+                    on_release: app.sm.current = 'settings'
