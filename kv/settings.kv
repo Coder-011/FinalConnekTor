@@ -1,255 +1,452 @@
 #:import dp kivy.metrics.dp
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 
-<SettingsScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        canvas.before:
+<ToggleSwitch>:
+    size_hint: None, None
+    size: dp(54), dp(30)
+    canvas:
+        # Track
+        Color:
+            rgba: (0, 0.941, 1, 0.12) if self.active else (0.1, 0.1, 0.1, 1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(15)]
+        # Track border
+        Color:
+            rgba: (0, 0.941, 1, 0.8) if self.active else (1,1,1,0.1)
+        Line:
+            rounded_rectangle: [self.x, self.y, self.width, self.height, dp(15)]
+            width: 1.2
+    
+    Widget:
+        id: knob
+        size_hint: None, None
+        size: dp(22), dp(22)
+        pos: root.x + (dp(28) if root.active else dp(4)), root.y + dp(4)
+        canvas:
             Color:
-                rgba: get_color_from_hex('#131313')
-            Rectangle:
+                rgba: (0, 0.941, 1, 1) if root.active else (0.5, 0.5, 0.5, 1)
+            Ellipse:
                 pos: self.pos
                 size: self.size
 
+<ThemeSwatch@MDBoxLayout>:
+    key: 'cyan'
+    active: False
+    color: 0, 0.941, 1, 1
+    radius: [dp(12)]
+    size_hint: None, None
+    size: dp(60), dp(60)
+    on_touch_down: if self.collide_point(*args[1].pos): app.sm.get_screen('settings').on_theme_select(self.key)
+    
+    canvas.before:
+        Color:
+            rgba: self.color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: self.radius
+        
+        # Active ring
+        Color:
+            rgba: (self.color[0], self.color[1], self.color[2], 0.2) if self.active else (0,0,0,0)
+        RoundedRectangle:
+            pos: self.x - dp(4), self.y - dp(4)
+            size: self.width + dp(8), self.height + dp(8)
+            radius: [dp(14)]
+        
+        Color:
+            rgba: self.color if self.active else (0,0,0,0)
+        Line:
+            rounded_rectangle: [self.x - dp(4), self.y - dp(4), self.width + dp(8), self.height + dp(8), dp(14)]
+            width: 1.5
+
+<SettingsScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.059, 0.059, 0.059, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        # ── TOP APP BAR ───────────────────────────────────────────────────
         BoxLayout:
             size_hint_y: None
-            height: dp(80)
-            padding: [dp(24), dp(20), 0, 0]
-            orientation: 'vertical'
+            height: dp(72)
+            padding: [dp(20), 0, dp(20), 0]
+            canvas.before:
+                Color:
+                    rgba: 0.075, 0.075, 0.075, 0.90
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                Color:
+                    rgba: 1, 1, 1, 0.08
+                Line:
+                    points: [self.x, self.y, self.x + self.width, self.y]
+                    width: 1
+
+            MDIconButton:
+                icon: 'web'
+                theme_text_color: 'Custom'
+                text_color: 0, 0.941, 1, 1
+                pos_hint: {'center_y': .5}
 
             MDLabel:
                 id: title_label
-                text: 'SETTINGS'
+                text: 'CONNEKTOR'
                 font_name: 'assets/fonts/Poppins-Bold.ttf'
-                font_size: '28sp'
+                font_size: '22sp'
                 bold: True
-                size_hint_y: None
-                height: dp(36)
+                halign: 'center'
                 theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#00F0FF')
+                text_color: 0.898, 0.886, 0.882, 1
 
-            MDLabel:
-                text: 'Configure your network experience'
-                font_size: '13sp'
+            MDIconButton:
+                icon: 'wifi'
                 theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#B9CACB')
-                size_hint_y: None
-                height: dp(20)
+                text_color: 0, 0.941, 1, 1
+                pos_hint: {'center_y': .5}
 
+        # ── MAIN CONTENT ──────────────────────────────────────────────────
         ScrollView:
             BoxLayout:
                 orientation: 'vertical'
-                spacing: dp(15)
-                padding: [dp(20), dp(15)]
+                padding: [dp(20), dp(20)]
+                spacing: dp(24)
                 size_hint_y: None
                 height: self.minimum_height
 
-                # ── SECTION: AUTO CONNECT ──────────────────────────────────────
-                MDLabel:
-                    id: appearance_section
-                    text: 'AUTO CONNECT'
-                    font_size: '11sp'
-                    bold: True
-                    size_hint_y: None
-                    height: dp(24)
-                    theme_text_color: 'Custom'
-                    text_color: get_color_from_hex('#00F0FF')
-
-                MDBoxLayout:
+                BoxLayout:
                     orientation: 'vertical'
-                    radius: [20]
-                    md_bg_color: get_color_from_hex('#1C1B1B')
-                    padding: [dp(20), dp(16)]
-                    spacing: dp(16)
                     size_hint_y: None
-                    height: dp(90)
+                    height: dp(60)
+                    MDLabel:
+                        text: 'Settings'
+                        font_name: 'assets/fonts/Poppins-Bold.ttf'
+                        font_size: '26sp'
+                        theme_text_color: 'Custom'
+                        text_color: 0.898, 0.886, 0.882, 1
+                    MDLabel:
+                        text: 'Configure your network experience'
+                        font_size: '13sp'
+                        theme_text_color: 'Custom'
+                        text_color: 0.725, 0.792, 0.796, 1
 
-                    BoxLayout:
-                        size_hint_y: None
-                        height: dp(55)
-                        spacing: dp(15)
+                # ── AUTO CONNECT SECTION ──────────────────────────────────
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: dp(140)
+                    MDLabel:
+                        id: autoconnect_section_label
+                        text: 'AUTO CONNECT'
+                        font_name: 'assets/fonts/Poppins-Regular.ttf'
+                        font_size: '11sp'
+                        letter_spacing: 2
+                        theme_text_color: 'Custom'
+                        text_color: 0, 0.941, 1, 1
 
-                        MDIcon:
-                            icon: 'lightning-bolt'
-                            theme_text_color: 'Custom'
-                            text_color: get_color_from_hex('#00F0FF')
-                            size_hint_x: None
-                            width: dp(30)
+                    MDBoxLayout:
+                        radius: [dp(24)]
+                        md_bg_color: 0.102, 0.102, 0.102, 0.85
+                        padding: dp(20)
+                        spacing: dp(16)
+                        canvas.after:
+                            Color:
+                                rgba: 1, 1, 1, 0.08
+                            Line:
+                                rounded_rectangle: [self.x, self.y, self.width, self.height, dp(24)]
+                                width: 1
+
+                        MDBoxLayout:
+                            size_hint: None, None
+                            size: dp(48), dp(48)
+                            radius: [dp(999)]
+                            md_bg_color: 0, 0.941, 1, 0.08
                             pos_hint: {'center_y': .5}
+                            MDIcon:
+                                icon: 'flash'
+                                theme_text_color: 'Custom'
+                                text_color: 0, 0.941, 1, 1
+                                halign: 'center'
+                                font_size: '22sp'
 
                         BoxLayout:
                             orientation: 'vertical'
                             pos_hint: {'center_y': .5}
-
                             MDLabel:
                                 text: 'Auto Connect'
+                                font_name: 'assets/fonts/Poppins-Bold.ttf'
                                 font_size: '16sp'
-                                bold: True
                                 theme_text_color: 'Custom'
-                                text_color: get_color_from_hex('#E5E2E1')
-                                size_hint_y: None
-                                height: dp(24)
-
+                                text_color: 0.898, 0.886, 0.882, 1
                             MDLabel:
                                 text: 'Instantly pair with trusted hubs'
-                                font_size: '12sp'
+                                font_size: '13sp'
                                 theme_text_color: 'Custom'
-                                text_color: get_color_from_hex('#B9CACB')
-                                size_hint_y: None
-                                height: dp(18)
+                                text_color: 0.725, 0.792, 0.796, 1
 
-                        MDSwitch:
-                            id: auto_login_toggle
+                        ToggleSwitch:
+                            id: auto_toggle
                             pos_hint: {'center_y': .5}
-                            on_active: root.on_auto_login_toggle(self.active)
-                            thumb_color_active: get_color_from_hex('#00F0FF')
-                            track_color_active: get_color_from_hex('#006970')
+                            on_active: root.on_auto_toggle_changed(self.active)
 
-                # ── SECTION: COLOR THEME ─────────────────────────────────────
-                MDLabel:
-                    text: 'THEME SELECTOR'
-                    font_size: '11sp'
-                    bold: True
-                    theme_text_color: 'Custom'
-                    text_color: get_color_from_hex('#00F0FF')
-                    size_hint_y: None
-                    height: dp(24)
-
-                MDBoxLayout:
+                # ── THEME SELECTOR SECTION ─────────────────────────────────
+                BoxLayout:
                     orientation: 'vertical'
-                    radius: [24]
-                    md_bg_color: get_color_from_hex('#1C1B1B')
-                    padding: [dp(24), dp(18)]
-                    spacing: dp(15)
+                    spacing: dp(12)
                     size_hint_y: None
-                    height: dp(220)
-
+                    height: dp(330)
                     MDLabel:
-                        text: 'Choose your accent color. Dark Obsidian is always kept.'
-                        font_size: '12sp'
-                        theme_text_color: 'Custom'
-                        text_color: get_color_from_hex('#B9CACB')
-                        size_hint_y: None
-                        height: dp(36)
-
-                    # Row: Theme swatches
-                    BoxLayout:
-                        size_hint_y: None
-                        height: dp(60)
-                        spacing: dp(12)
-
-                        MDRaisedButton:
-                            text: 'CYAN'
-                            md_bg_color: get_color_from_hex('#00F0FF')
-                            theme_text_color: 'Custom'
-                            text_color: get_color_from_hex('#131313')
-                            on_release: root.on_theme_select('electric_cyan')
-
-                        MDRaisedButton:
-                            text: 'VIOLET'
-                            md_bg_color: get_color_from_hex('#7000FF')
-                            theme_text_color: 'Custom'
-                            text_color: get_color_from_hex('#FFFFFF')
-                            on_release: root.on_theme_select('neon_violet')
-
-                        MDRaisedButton:
-                            text: 'SOLAR'
-                            md_bg_color: get_color_from_hex('#F97316')
-                            on_release: root.on_theme_select('solar_orange')
-
-                        MDRaisedButton:
-                            text: 'GHOST'
-                            md_bg_color: get_color_from_hex('#E5E2E1')
-                            theme_text_color: 'Custom'
-                            text_color: get_color_from_hex('#131313')
-                            on_release: root.on_theme_select('ghost_white')
-
-                    MDLabel:
-                        text: 'Current theme: Quantum Link Secured'
+                        id: theme_section_label
+                        text: 'THEME SELECTOR'
+                        font_name: 'assets/fonts/Poppins-Regular.ttf'
                         font_size: '11sp'
+                        letter_spacing: 2
                         theme_text_color: 'Custom'
-                        text_color: get_color_from_hex('#B9CACB')
-                        size_hint_y: None
-                        height: dp(20)
+                        text_color: 0, 0.941, 1, 1
 
-                # ── SECTION: SYSTEM INFO ─────────────────────────────────────
-                MDBoxLayout:
-                    orientation: 'vertical'
-                    radius: [20]
-                    md_bg_color: get_color_from_hex('#1C1B1B')
-                    padding: [dp(20), dp(16)]
-                    spacing: dp(8)
-                    size_hint_y: None
-                    height: dp(100)
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        radius: [dp(24)]
+                        md_bg_color: 0.102, 0.102, 0.102, 0.85
+                        padding: dp(20)
+                        spacing: dp(16)
+                        canvas.after:
+                            Color:
+                                rgba: 1, 1, 1, 0.08
+                            Line:
+                                rounded_rectangle: [self.x, self.y, self.width, self.height, dp(24)]
+                                width: 1
 
-                    BoxLayout:
-                        size_hint_y: None
-                        height: dp(40)
-                        spacing: dp(15)
-
-                        MDIcon:
-                            icon: 'shield-check'
-                            theme_text_color: 'Custom'
-                            text_color: get_color_from_hex('#00F0FF')
-                            size_hint_x: None
-                            width: dp(30)
-                            pos_hint: {'center_y': .5}
-
-                        MDLabel:
-                            text: 'Quantum V4.0.0 Stable'
-                            font_size: '14sp'
-                            theme_text_color: 'Custom'
-                            text_color: get_color_from_hex('#E5E2E1')
-
-                    BoxLayout:
-                        size_hint_y: None
-                        height: dp(30)
-                        spacing: dp(15)
-
-                        MDIcon:
-                            icon: 'information-outline'
-                            theme_text_color: 'Custom'
-                            text_color: get_color_from_hex('#B9CACB')
-                            size_hint_x: None
-                            width: dp(30)
+                        BoxLayout:
+                            size_hint_y: None
+                            height: dp(24)
+                            spacing: dp(10)
+                            MDIcon:
+                                icon: 'palette'
+                                theme_text_color: 'Custom'
+                                text_color: 0, 0.941, 1, 1
+                                font_size: '20sp'
+                            MDLabel:
+                                text: 'Theme Selector'
+                                font_name: 'assets/fonts/Poppins-Bold.ttf'
+                                font_size: '16sp'
+                                theme_text_color: 'Custom'
+                                text_color: 0.898, 0.886, 0.882, 1
 
                         MDLabel:
-                            text: 'Made by Anup Aryal'
+                            text: 'Choose your accent color. Dark Obsidian is always kept.'
                             font_size: '13sp'
                             theme_text_color: 'Custom'
-                            text_color: get_color_from_hex('#B9CACB')
+                            text_color: 0.725, 0.792, 0.796, 1
+                            size_hint_y: None
+                            height: dp(36)
 
-        # ── BOTTOM NAV ───────────────────────────────────────────────────────
+                        GridLayout:
+                            cols: 4
+                            spacing: dp(20)
+                            size_hint_y: None
+                            height: dp(140)
+                            
+                            ThemeSwatch:
+                                id: swatch_cyan
+                                key: 'cyan'
+                                color: 0, 0.941, 1, 1
+                                active: True
+                            ThemeSwatch:
+                                id: swatch_violet
+                                key: 'violet'
+                                color: 0.439, 0, 1, 1
+                            ThemeSwatch:
+                                id: swatch_amber
+                                key: 'amber'
+                                color: 0.996, 0.839, 0.224, 1
+                            ThemeSwatch:
+                                id: swatch_emerald
+                                key: 'emerald'
+                                color: 0, 0.820, 0.545, 1
+                            ThemeSwatch:
+                                id: swatch_crimson
+                                key: 'crimson'
+                                color: 1, 0.302, 0.302, 1
+                            ThemeSwatch:
+                                id: swatch_indigo
+                                key: 'indigo'
+                                color: 0.247, 0.318, 0.710, 1
+                            ThemeSwatch:
+                                id: swatch_rose
+                                key: 'rose'
+                                color: 0.914, 0.118, 0.388, 1
+                            ThemeSwatch:
+                                id: swatch_slate
+                                key: 'slate'
+                                color: 0.518, 0.580, 0.584, 1
+
+                        MDLabel:
+                            id: current_theme_label
+                            text: 'Current theme: Quantum Link Secured'
+                            font_size: '13sp'
+                            theme_text_color: 'Custom'
+                            text_color: 0.725, 0.792, 0.796, 1
+
+                # ── SYSTEM INFO SECTION ───────────────────────────────────
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: dp(140)
+                    MDLabel:
+                        id: sysinfo_section_label
+                        text: 'SYSTEM INFO'
+                        font_name: 'assets/fonts/Poppins-Regular.ttf'
+                        font_size: '11sp'
+                        letter_spacing: 2
+                        theme_text_color: 'Custom'
+                        text_color: 0, 0.941, 1, 1
+
+                    MDBoxLayout:
+                        orientation: 'vertical'
+                        radius: [dp(24)]
+                        md_bg_color: 0.102, 0.102, 0.102, 0.85
+                        padding: dp(20)
+                        spacing: dp(12)
+                        canvas.after:
+                            Color:
+                                rgba: 1, 1, 1, 0.08
+                            Line:
+                                rounded_rectangle: [self.x, self.y, self.width, self.height, dp(24)]
+                                width: 1
+
+                        BoxLayout:
+                            spacing: dp(12)
+                            size_hint_y: None
+                            height: dp(24)
+                            MDIcon:
+                                icon: 'shield-check'
+                                theme_text_color: 'Custom'
+                                text_color: 0, 0.941, 1, 1
+                                font_size: '20sp'
+                            MDLabel:
+                                text: 'Quantum V4.0.0 Stable'
+                                font_name: 'assets/fonts/Poppins-Bold.ttf'
+                                font_size: '15sp'
+                                theme_text_color: 'Custom'
+                                text_color: 0.898, 0.886, 0.882, 1
+
+                        Widget:
+                            size_hint_y: None
+                            height: dp(1)
+                            canvas:
+                                Color:
+                                    rgba: 1, 1, 1, 0.05
+                                Rectangle:
+                                    pos: self.pos
+                                    size: self.width, 1
+
+                        BoxLayout:
+                            spacing: dp(12)
+                            size_hint_y: None
+                            height: dp(24)
+                            MDIcon:
+                                icon: 'information-outline'
+                                theme_text_color: 'Custom'
+                                text_color: 0.518, 0.580, 0.584, 1
+                                font_size: '20sp'
+                            MDLabel:
+                                text: 'Made by Anup Aryal'
+                                font_name: 'assets/fonts/Poppins-Regular.ttf'
+                                font_size: '14sp'
+                                theme_text_color: 'Custom'
+                                text_color: 0.898, 0.886, 0.882, 1
+
+        # ── BOTTOM NAVIGATION ─────────────────────────────────────────────
         BoxLayout:
             size_hint_y: None
-            height: dp(65)
+            height: dp(72)
             canvas.before:
                 Color:
-                    rgba: get_color_from_hex('#0E0E0E')
+                    rgba: 0.110, 0.106, 0.106, 0.85
                 Rectangle:
                     pos: self.pos
                     size: self.size
+                Color:
+                    rgba: 1, 1, 1, 0.08
+                Line:
+                    points: [self.x, self.y + self.height, self.x + self.width, self.y + self.height]
+                    width: 1
 
-            AnchorLayout:
-                anchor_x: 'center'
-                MDIconButton:
+            # Tab: HOME
+            BoxLayout:
+                orientation: 'vertical'
+                padding: [0, dp(8)]
+                on_touch_down: if self.collide_point(*args[1].pos): app.sm.current = 'home'
+                MDIcon:
                     icon: 'home'
                     theme_text_color: 'Custom'
-                    text_color: get_color_from_hex('#B9CACB')
-                    on_release: app.sm.current = 'home'
-
-            AnchorLayout:
-                anchor_x: 'center'
-                MDIconButton:
-                    icon: 'router'
+                    text_color: 0.518, 0.580, 0.584, 1
+                    halign: 'center'
+                MDLabel:
+                    text: 'HOME'
+                    font_name: 'assets/fonts/Poppins-Bold.ttf'
+                    font_size: '10sp'
+                    halign: 'center'
                     theme_text_color: 'Custom'
-                    text_color: get_color_from_hex('#B9CACB')
-                    on_release: app.sm.current = 'profiles'
+                    text_color: 0.518, 0.580, 0.584, 1
 
-            AnchorLayout:
-                anchor_x: 'center'
-                MDIconButton:
-                    icon: 'settings'
+            # Tab: PROFILES
+            BoxLayout:
+                orientation: 'vertical'
+                padding: [0, dp(8)]
+                on_touch_down: if self.collide_point(*args[1].pos): app.sm.current = 'profiles'
+                MDIcon:
+                    icon: 'access-point-network'
                     theme_text_color: 'Custom'
-                    text_color: get_color_from_hex('#00F0FF')
-                    on_release: app.sm.current = 'settings'
+                    text_color: 0.518, 0.580, 0.584, 1
+                    halign: 'center'
+                MDLabel:
+                    text: 'PROFILES'
+                    font_name: 'assets/fonts/Poppins-Bold.ttf'
+                    font_size: '10sp'
+                    halign: 'center'
+                    theme_text_color: 'Custom'
+                    text_color: 0.518, 0.580, 0.584, 1
+
+            # Tab: SETTINGS (Active)
+            BoxLayout:
+                orientation: 'vertical'
+                padding: [0, dp(8)]
+                on_touch_down: if self.collide_point(*args[1].pos): app.sm.current = 'settings'
+                MDBoxLayout:
+                    size_hint: None, None
+                    size: dp(60), dp(40)
+                    pos_hint: {'center_x': .5}
+                    radius: [dp(14)]
+                    md_bg_color: 0, 0.941, 1, 0.08
+                    MDIcon:
+                        icon: 'cog'
+                        theme_text_color: 'Custom'
+                        text_color: 0, 0.941, 1, 1
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+                MDLabel:
+                    text: 'SETTINGS'
+                    font_name: 'assets/fonts/Poppins-Bold.ttf'
+                    font_size: '10sp'
+                    halign: 'center'
+                    theme_text_color: 'Custom'
+                    text_color: 0, 0.941, 1, 1
+                Widget:
+                    size_hint_y: None
+                    height: dp(4)
+                    canvas:
+                        Color:
+                            rgba: 0, 0.941, 1, 0.9
+                        Ellipse:
+                            pos: self.center_x - dp(2), self.y
+                            size: dp(4), dp(4)

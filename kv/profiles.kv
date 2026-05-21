@@ -2,192 +2,374 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
 
 <ProfilesScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.059, 0.059, 0.059, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
     BoxLayout:
         orientation: 'vertical'
-        canvas.before:
-            Color:
-                rgba: get_color_from_hex('#131313')
-            Rectangle:
-                pos: self.pos
-                size: self.size
 
+        # ── TOP APP BAR ───────────────────────────────────────────────────
         BoxLayout:
             size_hint_y: None
-            height: dp(80)
-            padding: [dp(24), dp(20), 0, 0]
-            orientation: 'vertical'
-
-            MDLabel:
-                id: title_label
-                text: 'PROFILES'
-                font_name: 'assets/fonts/Poppins-Bold.ttf'
-                font_size: '28sp'
-                bold: True
-                size_hint_y: None
-                height: dp(36)
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#00F0FF')
-
-            MDLabel:
-                id: section_label
-                text: 'Cyber Link Management'
-                font_size: '13sp'
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#B9CACB')
-                size_hint_y: None
-                height: dp(20)
-
-        # ── TAB ROW ──────────────────────────────────────────────────────────
-        BoxLayout:
-            size_hint_y: None
-            height: dp(60)
-            padding: [dp(20), dp(12)]
-            spacing: dp(15)
-
-            MDRaisedButton:
-                id: tab_p1
-                text: 'P1'
-                size_hint_x: 1
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#131313')
-                md_bg_color: get_color_from_hex('#00F0FF')
-                on_release: root.switch_tab(0)
-
-            MDRaisedButton:
-                id: tab_p2
-                text: 'P2'
-                size_hint_x: 1
-                md_bg_color: get_color_from_hex('#1C1B1B')
-                on_release: root.switch_tab(1)
-
-            MDRaisedButton:
-                id: tab_p3
-                text: 'P3'
-                size_hint_x: 1
-                md_bg_color: get_color_from_hex('#1C1B1B')
-                on_release: root.switch_tab(2)
-
-        # ── PROFILE FORM CARD ────────────────────────────────────────────────
-        MDBoxLayout:
-            orientation: 'vertical'
-            radius: [24]
-            md_bg_color: get_color_from_hex('#1C1B1B')
-            padding: [dp(24), dp(20)]
-            spacing: dp(15)
-            size_hint_y: None
-            height: dp(360)
-            pos_hint: {'center_x': .5}
-            size_hint_x: 0.92
-
-            BoxLayout:
-                size_hint_y: None
-                height: dp(30)
-                MDLabel:
-                    text: 'PROFILE NAME'
-                    font_size: '11sp'
-                    bold: True
-                    theme_text_color: 'Custom'
-                    text_color: get_color_from_hex('#B9CACB')
-                MDIconButton:
-                    icon: 'pencil-outline'
-                    pos_hint: {'center_y': .5}
-                    theme_text_color: 'Custom'
-                    text_color: get_color_from_hex('#00F0FF')
-                    on_release: root.edit_profile_name()
-
-            MDTextField:
-                id: profile_name_input
-                hint_text: 'e.g. My Profile'
-                mode: 'rectangle'
-                font_size: '15sp'
-                line_color_focus: get_color_from_hex('#00F0FF')
-
-            MDLabel:
-                text: 'USERNAME'
-                font_size: '11sp'
-                bold: True
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#B9CACB')
-                size_hint_y: None
-                height: dp(16)
-
-            MDTextField:
-                id: username_input
-                hint_text: 'e.g. 080bel042'
-                mode: 'rectangle'
-                font_size: '15sp'
-                line_color_focus: get_color_from_hex('#00F0FF')
-
-            MDLabel:
-                text: 'PASSWORD'
-                font_size: '11sp'
-                bold: True
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#B9CACB')
-                size_hint_y: None
-                height: dp(16)
-
-            MDTextField:
-                id: password_input
-                hint_text: 'Quantum Password'
-                password: True
-                mode: 'rectangle'
-                font_size: '15sp'
-                line_color_focus: get_color_from_hex('#00F0FF')
-
-            MDRaisedButton:
-                text: 'SAVE CHANGES'
-                size_hint_x: 1
-                height: dp(48)
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#131313')
-                md_bg_color: get_color_from_hex('#00F0FF')
-                on_release: root.on_save()
-
-            MDLabel:
-                id: save_feedback_label
-                text: ''
-                opacity: 0
-                halign: 'center'
-                theme_text_color: 'Custom'
-                text_color: get_color_from_hex('#00F0FF')
-                size_hint_y: None
-                height: dp(20)
-
-        Widget:
-            size_hint_y: 1
-
-        # ── BOTTOM NAV ───────────────────────────────────────────────────────
-        BoxLayout:
-            size_hint_y: None
-            height: dp(65)
+            height: dp(72)
+            padding: [dp(20), 0, dp(20), 0]
             canvas.before:
                 Color:
-                    rgba: get_color_from_hex('#0E0E0E')
+                    rgba: 0.075, 0.075, 0.075, 0.90
                 Rectangle:
                     pos: self.pos
                     size: self.size
+                Color:
+                    rgba: 1, 1, 1, 0.08
+                Line:
+                    points: [self.x, self.y, self.x + self.width, self.y]
+                    width: 1
 
-            AnchorLayout:
-                anchor_x: 'center'
-                MDIconButton:
+            MDIconButton:
+                icon: 'web'
+                theme_text_color: 'Custom'
+                text_color: 0, 0.941, 1, 1
+                pos_hint: {'center_y': .5}
+
+            MDLabel:
+                id: title_label
+                text: 'CONNEKTOR'
+                font_name: 'assets/fonts/Poppins-Bold.ttf'
+                font_size: '22sp'
+                bold: True
+                halign: 'center'
+                theme_text_color: 'Custom'
+                text_color: 0, 0.941, 1, 1
+
+            MDIconButton:
+                icon: 'wifi'
+                theme_text_color: 'Custom'
+                text_color: 0, 0.941, 1, 1
+                pos_hint: {'center_y': .5}
+
+        # ── MAIN CONTENT ──────────────────────────────────────────────────
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                padding: [dp(20), dp(20)]
+                spacing: dp(24)
+                size_hint_y: None
+                height: self.minimum_height
+
+                # ── PROFILE TAB SELECTOR ───────────────────────────────────
+                MDBoxLayout:
+                    size_hint_y: None
+                    height: dp(56)
+                    radius: [dp(18)]
+                    md_bg_color: 0.125, 0.122, 0.122, 0.4  # #201f1f 40%
+                    padding: dp(6)
+                    spacing: dp(4)
+                    canvas.after:
+                        Color:
+                            rgba: 255/255, 255/255, 255/255, 0.05
+                        Line:
+                            rounded_rectangle: [self.x, self.y, self.width, self.height, dp(18)]
+                            width: 1
+
+                    MDTextButton:
+                        id: tab_p1
+                        text: 'P1'
+                        font_name: 'assets/fonts/Poppins-Bold.ttf'
+                        size_hint: 1, 1
+                        custom_color: 0, 0.941, 1, 1
+                        on_release: root.switch_tab(0)
+
+                    MDTextButton:
+                        id: tab_p2
+                        text: 'P2'
+                        font_name: 'assets/fonts/Poppins-Bold.ttf'
+                        size_hint: 1, 1
+                        on_release: root.switch_tab(1)
+
+                    MDTextButton:
+                        id: tab_p3
+                        text: 'P3'
+                        font_name: 'assets/fonts/Poppins-Bold.ttf'
+                        size_hint: 1, 1
+                        on_release: root.switch_tab(2)
+
+                # ── MAIN PROFILE CARD ──────────────────────────────────────
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    padding: dp(20)
+                    spacing: dp(20)
+                    radius: [dp(24)]
+                    md_bg_color: 0.102, 0.102, 0.102, 0.85
+                    size_hint_y: None
+                    height: dp(440)
+                    canvas.after:
+                        Color:
+                            rgba: 1, 1, 1, 0.08
+                        Line:
+                            rounded_rectangle: [self.x, self.y, self.width, self.height, dp(24)]
+                            width: 1
+                        # Decorative accent
+                        Color:
+                            rgba: 0, 0.941, 1, 0.06
+                        Ellipse:
+                            pos: self.x + self.width - dp(60), self.y + self.height - dp(60)
+                            size: dp(100), dp(100)
+
+                    # Profile Name Field
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: dp(8)
+                        size_hint_y: None
+                        height: dp(70)
+                        MDLabel:
+                            text: 'PROFILE NAME'
+                            font_name: 'assets/fonts/Poppins-Regular.ttf'
+                            font_size: '10sp'
+                            theme_text_color: 'Custom'
+                            text_color: 0.725, 0.792, 0.796, 0.6
+                            letter_spacing: 2
+                        MDTextField:
+                            id: profile_name_input
+                            hint_text: 'e.g. Campus Lib'
+                            mode: 'fill'
+                            fill_color: 0.110, 0.106, 0.106, 1
+                            radius: [dp(16)]
+                            font_name: 'assets/fonts/Poppins-Regular.ttf'
+
+                    # Field 1: Student ID
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: dp(8)
+                        size_hint_y: None
+                        height: dp(70)
+                        MDLabel:
+                            text: 'STUDENT IDENTIFICATION'
+                            font_name: 'assets/fonts/Poppins-Regular.ttf'
+                            font_size: '10sp'
+                            theme_text_color: 'Custom'
+                            text_color: 0.725, 0.792, 0.796, 0.6
+                            letter_spacing: 2
+                        MDTextField:
+                            id: username_input
+                            hint_text: 'e.g. 080bel042'
+                            mode: 'fill'
+                            fill_color: 0.110, 0.106, 0.106, 1
+                            radius: [dp(16)]
+                            font_name: 'assets/fonts/Poppins-Regular.ttf'
+                            icon_left: 'account'
+
+                    # Field 2: Password
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: dp(8)
+                        size_hint_y: None
+                        height: dp(70)
+                        MDLabel:
+                            text: 'SECURE ACCESS TOKEN'
+                            font_name: 'assets/fonts/Poppins-Regular.ttf'
+                            font_size: '10sp'
+                            theme_text_color: 'Custom'
+                            text_color: 0.725, 0.792, 0.796, 0.6
+                            letter_spacing: 2
+                        MDBoxLayout:
+                            orientation: 'horizontal'
+                            size_hint_y: None
+                            height: dp(56)
+                            MDTextField:
+                                id: password_input
+                                hint_text: 'Quantum Password'
+                                password: True
+                                mode: 'fill'
+                                fill_color: 0.110, 0.106, 0.106, 1
+                                radius: [dp(16)]
+                                font_name: 'assets/fonts/Poppins-Regular.ttf'
+                                icon_left: 'lock'
+                            MDRaisedButton:
+                                id: reveal_btn
+                                text: 'REVEAL'
+                                font_size: '10sp'
+                                md_bg_color: 0, 0.941, 1, 0.08
+                                text_color: 0, 0.941, 1, 1
+                                size_hint: None, None
+                                size: dp(70), dp(32)
+                                pos_hint: {'center_y': .5}
+                                on_release: root.toggle_password_reveal()
+                                # We use a hacky text overlay because MDTextField manages its own right icon
+                                # But the spec asks for a button.
+
+                    # Save Button
+                    Widget:
+                        size_hint_y: None
+                        height: dp(10)
+                    
+                    MDRaisedButton:
+                        text: 'SAVE CHANGES'
+                        font_name: 'assets/fonts/Poppins-Bold.ttf'
+                        font_size: '14sp'
+                        size_hint_x: 1
+                        height: dp(54)
+                        md_bg_color: 0, 0.941, 1, 1
+                        text_color: 0, 0.211, 0.227, 1  # Dark teal
+                        radius: [dp(999)]
+                        on_release: root.on_save()
+                        id: save_btn_color
+
+                    MDLabel:
+                        id: save_feedback_label
+                        text: ''
+                        font_size: '12sp'
+                        halign: 'center'
+                        theme_text_color: 'Custom'
+                        text_color: 0, 0.820, 0.545, 1
+
+                # ── BENTO STATS CARDS ──────────────────────────────────────
+                BoxLayout:
+                    orientation: 'horizontal'
+                    spacing: dp(16)
+                    size_hint_y: None
+                    height: dp(80)
+
+                    # Card 1: Uptime
+                    MDBoxLayout:
+                        radius: [dp(16)]
+                        md_bg_color: 0.102, 0.102, 0.102, 0.85
+                        padding: dp(12)
+                        canvas.before:
+                            Color:
+                                rgba: 0, 0.941, 1, 1
+                            Line:
+                                points: [self.x, self.y + dp(10), self.x, self.y + self.height - dp(10)]
+                                width: 2
+                        BoxLayout:
+                            orientation: 'vertical'
+                            MDLabel:
+                                text: 'UPTIME'
+                                font_size: '10sp'
+                                text_color: 0.725, 0.792, 0.796, 1
+                            MDLabel:
+                                text: '99.9%'
+                                font_name: 'assets/fonts/Poppins-Bold.ttf'
+                                font_size: '18sp'
+                        MDIcon:
+                            icon: 'wifi'
+                            font_size: '16sp'
+                            text_color: 0, 0.941, 1, 1
+                            size_hint_x: None
+                            width: dp(20)
+
+                    # Card 2: Nodes
+                    MDBoxLayout:
+                        radius: [dp(16)]
+                        md_bg_color: 0.102, 0.102, 0.102, 0.85
+                        padding: dp(12)
+                        canvas.before:
+                            Color:
+                                rgba: 0.439, 0, 1, 1  # Violet
+                            Line:
+                                points: [self.x, self.y + dp(10), self.x, self.y + self.height - dp(10)]
+                                width: 2
+                        BoxLayout:
+                            orientation: 'vertical'
+                            MDLabel:
+                                text: 'NODES'
+                                font_size: '10sp'
+                                text_color: 0.725, 0.792, 0.796, 1
+                            MDLabel:
+                                text: '14 Active'
+                                font_name: 'assets/fonts/Poppins-Bold.ttf'
+                                font_size: '18sp'
+                        MDIcon:
+                            icon: 'access-point'
+                            font_size: '16sp'
+                            text_color: 0.439, 0, 1, 1
+                            size_hint_x: None
+                            width: dp(20)
+
+        # ── BOTTOM NAVIGATION ─────────────────────────────────────────────
+        BoxLayout:
+            size_hint_y: None
+            height: dp(72)
+            canvas.before:
+                Color:
+                    rgba: 0.110, 0.106, 0.106, 0.85
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                Color:
+                    rgba: 1, 1, 1, 0.08
+                Line:
+                    points: [self.x, self.y + self.height, self.x + self.width, self.y + self.height]
+                    width: 1
+
+            # Tab: HOME
+            BoxLayout:
+                orientation: 'vertical'
+                padding: [0, dp(8)]
+                on_touch_down: if self.collide_point(*args[1].pos): app.sm.current = 'home'
+                MDIcon:
                     icon: 'home'
                     theme_text_color: 'Custom'
-                    text_color: get_color_from_hex('#B9CACB')
-                    on_release: app.sm.current = 'home'
-
-            AnchorLayout:
-                anchor_x: 'center'
-                MDIconButton:
-                    icon: 'router'
+                    text_color: 0.518, 0.580, 0.584, 1
+                    halign: 'center'
+                MDLabel:
+                    text: 'HOME'
+                    font_name: 'assets/fonts/Poppins-Bold.ttf'
+                    font_size: '10sp'
+                    halign: 'center'
                     theme_text_color: 'Custom'
-                    text_color: get_color_from_hex('#00F0FF')
-                    on_release: app.sm.current = 'profiles'
+                    text_color: 0.518, 0.580, 0.584, 1
 
-            AnchorLayout:
-                anchor_x: 'center'
-                MDIconButton:
-                    icon: 'settings'
+            # Tab: PROFILES (Active)
+            BoxLayout:
+                orientation: 'vertical'
+                padding: [0, dp(8)]
+                on_touch_down: if self.collide_point(*args[1].pos): app.sm.current = 'profiles'
+                MDBoxLayout:
+                    size_hint: None, None
+                    size: dp(60), dp(40)
+                    pos_hint: {'center_x': .5}
+                    radius: [dp(14)]
+                    md_bg_color: 0, 0.941, 1, 0.08
+                    MDIcon:
+                        icon: 'access-point-network'
+                        theme_text_color: 'Custom'
+                        text_color: 0, 0.941, 1, 1
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+                MDLabel:
+                    text: 'PROFILES'
+                    font_name: 'assets/fonts/Poppins-Bold.ttf'
+                    font_size: '10sp'
+                    halign: 'center'
                     theme_text_color: 'Custom'
-                    text_color: get_color_from_hex('#B9CACB')
-                    on_release: app.sm.current = 'settings'
+                    text_color: 0, 0.941, 1, 1
+                Widget:
+                    size_hint_y: None
+                    height: dp(4)
+                    canvas:
+                        Color:
+                            rgba: 0, 0.941, 1, 0.9
+                        Ellipse:
+                            pos: self.center_x - dp(2), self.y
+                            size: dp(4), dp(4)
+
+            # Tab: SETTINGS
+            BoxLayout:
+                orientation: 'vertical'
+                padding: [0, dp(8)]
+                on_touch_down: if self.collide_point(*args[1].pos): app.sm.current = 'settings'
+                MDIcon:
+                    icon: 'cog'
+                    theme_text_color: 'Custom'
+                    text_color: 0.518, 0.580, 0.584, 1
+                    halign: 'center'
+                MDLabel:
+                    text: 'SETTINGS'
+                    font_name: 'assets/fonts/Poppins-Bold.ttf'
+                    font_size: '10sp'
+                    halign: 'center'
+                    theme_text_color: 'Custom'
+                    text_color: 0.518, 0.580, 0.584, 1

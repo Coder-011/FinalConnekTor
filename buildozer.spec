@@ -24,7 +24,7 @@ android.allow_backup = False
 android.logcat_filters = *:S python:D
 
 # Presplash color matches app background — avoids white flash on launch
-presplash.color = #0D0E1A
+presplash.color = #131313
 icon.filename = %(source.dir)s/assets/icon.png
 
 [buildozer]

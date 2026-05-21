@@ -9,8 +9,8 @@ def main():
     
     # Download Fonts
     fonts = {
-        'Poppins-Bold.ttf': 'https://github.com/google/fonts/raw/main/ofl/poppins/Poppins-Bold.ttf',
-        'Poppins-Regular.ttf': 'https://github.com/google/fonts/raw/main/ofl/poppins/Poppins-Regular.ttf',
+        'Geist-Bold.ttf': 'https://github.com/vercel/geist-font/raw/main/packages/next/dist/fonts/geist-sans/Geist-Bold.ttf',
+        'Geist-Regular.ttf': 'https://github.com/vercel/geist-font/raw/main/packages/next/dist/fonts/geist-sans/Geist-Regular.ttf',
         'MaterialIcons.ttf': 'https://github.com/google/material-design-icons/raw/master/font/MaterialIcons-Regular.ttf'
     }
     
@@ -24,7 +24,7 @@ def main():
     icon_path = os.path.join(assets_dir, 'icon.png')
     if not os.path.exists(icon_path):
         print("Creating icon.png...")
-        img = Image.new('RGB', (512, 512), color=(13, 14, 26)) # #0D0E1A
+        img = Image.new('RGB', (512, 512), color=(19, 19, 19)) # #131313
         img.save(icon_path)
         
     print("Assets created successfully.")
